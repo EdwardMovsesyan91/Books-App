@@ -1,15 +1,13 @@
-import image2 from "../images/the-book-of-job.jpg"
-
-
-//============= Not Working . . . need to install webpack ======================
-// function importAll(r: any) {
+// function importAll(r) {
 //     return r.keys().map(r);
 // }
 // export const images = importAll(require.context('./', false, /\.(png|jpe?g|svg)$/));
 
 
-export let bookData = [
-    {
+
+
+export let bookData = [{
+
 
         "author": "Chinua Achebe",
         "country": "Nigeria",
@@ -53,7 +51,7 @@ export let bookData = [
     {
         "author": "Unknown",
         "country": "Achaemenid Empire",
-        "imageLink": image2,
+        "imageLink": "images/the-book-of-job.jpg",
         "language": "Hebrew",
         "link": "https://en.wikipedia.org/wiki/Book_of_Job\n",
         "pages": 176,
@@ -1012,7 +1010,6 @@ export let bookData = [
     }
 ]
 
-bookData.sort((a: any, b: any) => (a.year < b.year) ? 1 : ((b.year < a.year) ? -1 : 0))
+bookData.sort((a, b) => (a.year < b.year) ? 1 : ((b.year < a.year) ? -1 : 0))
 
-//====== Part of the function that import all images, also not working need to download webpack=======
-// export const booksWithImages = bookData.map((b, index) => { return { ...b, image: images[index] } })
+// export const booksWithImages = bookData.map((b, index) => { return { ...b, imageLink: images[index] } })

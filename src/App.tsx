@@ -5,6 +5,7 @@ import { BookList } from './components/bookList/index'
 import { bookData } from './components/jasonData/DATA'
 import { Search } from './components/search/index';
 import { CreateProduct } from './components/create-book/index'
+import {Payment} from './components/paymentForm/idnex'
 
 class App extends React.Component<any, any>{
   constructor(props: any) {
@@ -17,6 +18,7 @@ class App extends React.Component<any, any>{
       //why should I add onSale:false in the constrator? if its works exactly the same way without it?
       filteredBookList: bookData,
       fullBookList: bookData,
+      cart: []
     }
     console.log(this)
   }
@@ -34,8 +36,16 @@ class App extends React.Component<any, any>{
 
   }
 
+  addBookFather = (book: any) => {
+    this.setState({ books: [...this.state.books, book] })
+  }
+
+  addToCart = (product: any) => {
+    this.setState({ cart: [...this.state.cart, product] })
+  }
+
   render() {
-    const { fullBookList, filteredBookList, hebrewBook, searchValue } = this.state;
+    const { fullBookList, cart, filteredBookList, hebrewBook, searchValue } = this.state;
     const searchProps = { cat: this.state.cat, categories: getCategories(fullBookList), searchOperation: this.searchOperation, hebrewBook, searchValue }
     console.log(this)
     return (
@@ -49,12 +59,19 @@ class App extends React.Component<any, any>{
         <Search key={this.state.import} {...searchProps} />
 
 
-        {filteredBookList.length ? <BookList books={filteredBookList} /> : <h1> There is no title with that name, please make sure you write the title name correctly...</h1>}
+        {filteredBookList.length ? <BookList addToCart={this.addToCart} books={filteredBookList} /> : <h1> There is no title with that name, please make sure you write the title name correctly...</h1>}
         {/* <Book {...fullBookList[0]} /> */}
+
+        <h1>Your cart</h1>
+        {filteredBookList.length ? <BookList books={cart} /> : <h1> No items in cart.</h1>}
+        
+
+        <Payment/>
       </div >
     );
   }
 }
+
 function getCategories(books: Array<any>) {
   return Object.keys(books.reduce((allCats, p: any) => {
     return { ...allCats, [p.language]: true }
